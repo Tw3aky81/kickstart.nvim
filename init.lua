@@ -120,6 +120,10 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- [[ My Basic keymaps ]]
 vim.keymap.set('n', '<leader>e', '<cmd>Lexplore<CR>', { desc = 'Open netrw file explorer' })
+vim.keymap.set('n', '<leader>g', '<cmd>Neogit<CR>', { desc = 'Open Neogit window' })
+vim.keymap.set('n', '<leader>gc', '<cmd>Neogit commit<CR>', { desc = 'Commit changes' })
+vim.keymap.set('n', '<leader>gca', '<cmd>Neogit commit -a<CR>', { desc = 'Commit all changes' })
+vim.keymap.set('n', '<leader>gplo', '<cmd>Neogit pull<CR>', { desc = 'Pull new commits' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
