@@ -22,6 +22,9 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
+-- enable a colored column at position 80
+vim.opt.colorcolumn = '80'
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -124,6 +127,8 @@ vim.keymap.set('n', '<leader>g', '<cmd>Neogit<CR>', { desc = 'Open Neo[g]it wind
 vim.keymap.set('n', '<leader>gc', '<cmd>Neogit commit<CR>', { desc = '[C]ommit changes' })
 vim.keymap.set('n', '<leader>gca', '<cmd>Neogit commit -a<CR>', { desc = '[C]ommit [a]ll changes' })
 vim.keymap.set('n', '<leader>gplo', '<cmd>Neogit pull<CR>', { desc = 'Pull new commits from origin' })
+vim.keymap.set('n', '<F5>', '<cmd>!python %<CR>', { desc = 'Run this file with Python' })
+vim.keymap.set('i', 'jj', '<esc>', { desc = 'shortcut for the escape key in insert mode' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
