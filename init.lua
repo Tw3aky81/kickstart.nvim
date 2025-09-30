@@ -144,6 +144,45 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'netrw',
+  callback = function()
+    local function netrw_new_file()
+      -- determine directory
+      local dir = vim.b.netrw_curdir or ''
+      if dir == '' then
+        local lines = vim.api.nvim_buf_get_lines(0, 0, 5, false)
+        for _, ln in ipairs(lines) do
+          local s = ln:match 'Browsing%s+(.+)$'
+          if s then
+            dir = s
+            break
+          end
+        end
+      end
+      if dir == '' then
+        dir = vim.fn.getcwd()
+      end
+
+      -- prompt for file
+      local name = vim.fn.input('New file (in ' .. dir .. '): ', '', 'file')
+      if name == '' then
+        return
+      end
+      local path = vim.fn.fnameescape(dir .. '/' .. name)
+
+      -- if there is more than one window, jump to the next one (like netrw does)
+      if vim.fn.winnr '$' > 1 then
+        vim.cmd 'wincmd w' -- go to next window
+      end
+
+      vim.cmd('edit ' .. path)
+    end
+
+    vim.keymap.set('n', '%', netrw_new_file, { buffer = true, noremap = true })
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -170,6 +209,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-surround', -- all about "surroundings": parentheses, brackets, quotes, XML tags, and more
+
+  -- Plugin for rust support
+  'rust-lang/rust.vim',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -177,7 +220,13 @@ require('lazy').setup({
   --
   -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
   --
-
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true,
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
+  },
   -- Alternatively, use `config = function() ... end` for full control over the configuration.
   -- If you prefer to call `setup` explicitly, use:
   --    {
