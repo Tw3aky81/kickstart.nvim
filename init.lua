@@ -11,6 +11,9 @@ vim.g.have_nerd_font = true
 vim.g.netrw_keepdir = 0
 vim.g.netrw_winsize = 30
 
+-- [[ vim-airline options ]]
+vim.g.airline_powerline_fonts = 1
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -208,11 +211,18 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-surround', -- all about "surroundings": parentheses, brackets, quotes, XML tags, and more
+
+  -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth',
+
+  -- all about "surroundings": parentheses, brackets, quotes, XML tags, and more
+  'tpope/vim-surround',
 
   -- Plugin for rust support
   'rust-lang/rust.vim',
+
+  -- Trying vim-airline
+  'vim-airline/vim-airline',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -905,8 +915,12 @@ require('lazy').setup({
   {
     'EdenEast/nightfox.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
+  },
+  {
+    'arcticicestudio/nord-vim',
+    priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'duskfox'
+      vim.cmd.colorscheme 'nord'
     end,
   },
   -- Highlight todo, notes, etc in comments
@@ -922,31 +936,6 @@ require('lazy').setup({
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
   { -- Highlight, edit, and navigate code
