@@ -2,13 +2,13 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.colorcolumn = '80'
-vim.opt.breakindent = true
-vim.opt.timeoutlen = 300
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.colorcolumn = '80'
+vim.o.breakindent = true
+vim.o.timeoutlen = 300
+vim.o.list = true
+vim.o.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
